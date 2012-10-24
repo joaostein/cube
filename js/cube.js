@@ -22,5 +22,25 @@ Cube.prototype = {
     this.scene.add( this.mesh );
 
     this.renderer.render( this.scene, this.camera );
+
+    requestAnimationFrame( this.animate );
+  },
+
+  animate: function () {
+    cube.mesh.rotation.x += 0.005;
+    cube.mesh.rotation.y += 0.01;
+
+    cube.renderer.render( cube.scene, cube.camera );
+    requestAnimationFrame( cube.animate );
   }
 };
+
+
+// function animate() {
+//       requestAnimationFrame( animate );
+
+//       cube.mesh.rotation.x += 0.005;
+//       cube.mesh.rotation.y += 0.01;
+
+//       cube.renderer.render( cube.scene, cube.camera );
+// }
