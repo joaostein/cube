@@ -18,5 +18,22 @@
     <script src="js/jquery.js"></script>
     <script src="js/three.min.js"></script>
     <script src="js/cube.js"></script>
+    <script>
+
+    var cube = new Cube();
+
+    animate();
+
+    function animate() {
+
+      requestAnimationFrame( animate );
+
+      cube.mesh.rotation.x += 0.005;
+      cube.mesh.rotation.y += 0.01;
+
+      cube.renderer.render( cube.scene, cube.camera );
+    }
+
+    </script>
   </body>
 </html>
