@@ -8,14 +8,11 @@ Cube.prototype = {
 		this.createRenderer();
 		this.createCamera();
 		this.createScene();
+		this.createObject();
 
 		
 
-		var geometry = new THREE.CubeGeometry( 200, 200, 200 );
-		var material = new THREE.MeshBasicMaterial({ color: 0xCC0000 });
-
-		this.mesh = new THREE.Mesh( geometry, material );
-		this.scene.add( this.mesh );
+		
 
 		this.renderer.render( this.scene, this.camera );
 
@@ -37,6 +34,13 @@ Cube.prototype = {
 
 	createScene: function () {
 		this.scene = new THREE.Scene();
+	},
+
+	createObject: function () {
+		var geometry = new THREE.CubeGeometry( 200, 200, 200 );
+		var material = new THREE.MeshBasicMaterial({ color: 0xCC0000 });
+		this.mesh = new THREE.Mesh( geometry, material );
+		this.scene.add( this.mesh );
 	},
 
 	animate: function () {
