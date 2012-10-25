@@ -35,7 +35,10 @@ Cube.prototype = {
 
 	createObject: function () {
 		var geometry = new THREE.CubeGeometry( 200, 200, 200 );
-		var material = new THREE.MeshBasicMaterial({ color: 0xCC0000 });
+		var texture = THREE.ImageUtils.loadTexture( 'images/crate.gif' );
+		texture.anisotropy = this.renderer.getMaxAnisotropy();
+		var material = new THREE.MeshBasicMaterial( { map: texture } );
+
 		this.mesh = new THREE.Mesh( geometry, material );
 		this.scene.add( this.mesh );
 	},
