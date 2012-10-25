@@ -7,8 +7,9 @@ Cube.prototype = {
 
 		this.createRenderer();
 		this.createCamera();
+		this.createScene();
 
-		this.scene = new THREE.Scene();
+		
 
 		var geometry = new THREE.CubeGeometry( 200, 200, 200 );
 		var material = new THREE.MeshBasicMaterial({ color: 0xCC0000 });
@@ -32,6 +33,10 @@ Cube.prototype = {
 	createCamera: function () {
 		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 		this.camera.position.z = 400;
+	},
+
+	createScene: function () {
+		this.scene = new THREE.Scene();
 	},
 
 	animate: function () {
