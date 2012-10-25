@@ -45,12 +45,12 @@ Cube.prototype = {
 
 	animate: function () {
 		var self = this;
-		requestAnimationFrame(function() {
-			self.mesh.rotation.y += 0.01;
-			self.mesh.rotation.x += 0.005;
-			self.renderer.render( self.scene, self.camera );
-			self.animate();
-		});
+		requestAnimationFrame(function() { self.animate() });
+
+		this.mesh.rotation.y += 0.01;
+		this.mesh.rotation.x += 0.005;
+
+		this.renderer.render( this.scene, this.camera );
 	},
 
 	tween: function () {
