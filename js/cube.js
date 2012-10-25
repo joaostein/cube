@@ -1,24 +1,21 @@
 function Cube () {
 	this.init();
 }
-Cube.prototype = {
-	init: function () {
-		this.timeLine = new TimelineLite();
 
+Cube.prototype = {
+
+	init: function () {
+		this.createTimeline();
 		this.createRenderer();
 		this.createCamera();
 		this.createScene();
 		this.createObject();
-
-		
-
-		
-
-		this.renderer.render( this.scene, this.camera );
-
-		this.timeLine.to(this.mesh.position, 1, { x: 300, y: 170, z: -180, ease:Strong.easeInOut, onComplete: this.reverseAnim, onCompleteParams: [this] } );
-
 		this.animate();
+		this.tween();
+	},
+
+	createTimeline: function () {
+		this.timeLine = new TimelineLite();
 	},
 
 	createRenderer: function () {
@@ -53,7 +50,11 @@ Cube.prototype = {
 		});
 	},
 
-	reverseAnim: function (self) {
+	tween: function () {
+		this.timeLine.to(this.mesh.position, 1, { x: 300, y: 170, z: -180, ease:Strong.easeInOut, onComplete: this.reverseAnimation, onCompleteParams: [this] } );
+	},
+
+	reverseAnimation: function (self) {
 		self.timeLine.reverse();
 	}
 };
