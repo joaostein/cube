@@ -6,11 +6,7 @@ Cube.prototype = {
 		this.timeLine = new TimelineLite();
 
 		this.createRenderer();
-		
-		document.body.appendChild( this.renderer.domElement );
-
-		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-		this.camera.position.z = 400;
+		this.createCamera();
 
 		this.scene = new THREE.Scene();
 
@@ -30,6 +26,12 @@ Cube.prototype = {
 	createRenderer: function () {
 		this.renderer = new THREE.WebGLRenderer();
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( this.renderer.domElement );
+	},
+
+	createCamera: function () {
+		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+		this.camera.position.z = 400;
 	},
 
 	animate: function () {
