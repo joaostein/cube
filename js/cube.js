@@ -29,11 +29,12 @@ Cube.prototype = {
 
 	animate: function () {
 		var self = this;
-		setInterval(function() {
+		requestAnimationFrame(function() {
 			self.mesh.rotation.y += 0.01;
 			self.mesh.rotation.x += 0.005;
 			self.renderer.render( self.scene, self.camera );
-		}, 1000/60);
+			self.animate();
+		});
 	},
 
 	reverseAnim: function (self) {
