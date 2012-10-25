@@ -5,8 +5,8 @@ Cube.prototype = {
 	init: function () {
 		this.timeLine = new TimelineLite();
 
-		this.renderer = new THREE.WebGLRenderer();
-		this.renderer.setSize( window.innerWidth, window.innerHeight );
+		this.createRenderer();
+		
 		document.body.appendChild( this.renderer.domElement );
 
 		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -25,6 +25,11 @@ Cube.prototype = {
 		this.timeLine.to(this.mesh.position, 1, { x: 300, y: 170, z: -180, ease:Strong.easeInOut, onComplete: this.reverseAnim, onCompleteParams: [this] } );
 
 		this.animate();
+	},
+
+	createRenderer: function () {
+		this.renderer = new THREE.WebGLRenderer();
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
 	},
 
 	animate: function () {
