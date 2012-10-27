@@ -1,4 +1,11 @@
-function Cube () {
+function Cube (name) {
+
+	if (typeof cubes === 'undefined') cubes = [];
+
+	this.id = cubes.length;
+	this.name = name;
+	this.div = document.getElementById(name);
+	cubes.push(this);
 	this.init();
 }
 
@@ -11,7 +18,8 @@ Cube.prototype = {
 		this.createScene();
 		this.createObject();
 		this.animate();
-		this.tween();
+		this.animation();
+		window.addEventListener('resize', this.onWindowResize, false);
 	},
 
 	createTimeline: function () {
@@ -20,12 +28,12 @@ Cube.prototype = {
 
 	createRenderer: function () {
 		this.renderer = new THREE.WebGLRenderer();
-		this.renderer.setSize( window.innerWidth, window.innerHeight );
-		document.body.appendChild( this.renderer.domElement );
+		this.renderer.setSize( this.div.clientWidth, this.div.clientHeight );
+		this.div.appendChild( this.renderer.domElement );
 	},
 
 	createCamera: function () {
-		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+		this.camera = new THREE.PerspectiveCamera( 70, this.div.clientWidth / this.div.clientHeight, 1, 1000 );
 		this.camera.position.z = 400;
 	},
 
@@ -43,17 +51,25 @@ Cube.prototype = {
 		this.scene.add( this.mesh );
 	},
 
-	animate: function () {
-		var self = this;
-		requestAnimationFrame(function() { self.animate() });
-
-		this.mesh.rotation.y += 0.01;
-		this.mesh.rotation.x += 0.005;
-
-		this.renderer.render( this.scene, this.camera );
+	onWindowResize: function () {
+		for (var i=0; i<cubes.length; i++){
+			cubes[i].camera.aspect = cubes[i].div.clientWidth / cubes[i].div.clientHeight;
+			cubes[i].camera.updateProjectionMatrix();
+			cubes[i].renderer.setSize( cubes[i].div.clientWidth, cubes[i].div.clientHeight );
+		}
 	},
 
-	tween: function () {
+	animate: function () {
+		requestAnimationFrame( cubes[0].animate );
+
+		for (var i=0; i<cubes.length; i++){
+			cubes[i].mesh.rotation.x += 0.005;
+			cubes[i].mesh.rotation.y += 0.01;
+			cubes[i].renderer.render( cubes[i].scene, cubes[i].camera );
+		}
+	},
+
+	animation: function () {
 		this.timeLine.to(this.mesh.position, 1, { x: 300, y: 170, z: -180, ease:Strong.easeInOut, onComplete: this.reverseAnimation, onCompleteParams: [this] } );
 	},
 
